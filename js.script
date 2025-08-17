@@ -1,0 +1,44 @@
+const caixaPerguntas = document.querySelector(".caixa-perguntas");
+const caixaTexto = document.querySelector(".caixa-texto");
+const btnProximo = document.querySelector(".btn-proximo");
+const textoResultado = document.querySelector(".texto-resultado");
+
+const partesRedacao = [
+    "Introdução",
+    "Tese",
+    "Desenvolvimento",
+    "Conclusão",
+    "Proposta de intervenção"
+];
+
+let atual = 0;
+let redacaoFinal = [];
+
+function mostraPergunta() {
+    if (atual >= partesRedacao.length) {
+        mostraResultado();
+        return;
+    }
+    caixaPerguntas.textContent = `Digite sua ${partesRedacao[atual]}:`;
+    caixaTexto.value = "";
+}
+
+btnProximo.addEventListener("click", () => {
+    const textoAluno = caixaTexto.value.trim();
+    if (textoAluno === "") {
+        alert("Por favor, digite algum texto antes de continuar.");
+        return;
+    }
+    redacaoFinal.push(textoAluno);
+    atual++;
+    mostraPergunta();
+});
+
+function mostraResultado() {
+    caixaPerguntas.textContent = "Sua redação completa:";
+    caixaTexto.style.display = "none";
+    btnProximo.style.display = "none";
+    textoResultado.textContent = redacaoFinal.join(" ");
+}
+
+mostraPergunta();
